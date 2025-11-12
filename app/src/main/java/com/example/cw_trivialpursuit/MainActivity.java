@@ -3,6 +3,7 @@ package com.example.cw_trivialpursuit;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,5 +39,11 @@ public class MainActivity extends AppCompatActivity {
         int face = r.nextInt(diceSup) + 1;
         String s = String.valueOf(face);
         diceValue.setText(s);
+
+        if(face == diceSup) {
+            Toast t = new Toast(this);
+            t.setText("Lucky!");
+            t.show();
+        }
     }
 }
