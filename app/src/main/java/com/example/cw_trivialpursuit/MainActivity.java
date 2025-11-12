@@ -2,6 +2,7 @@ package com.example.cw_trivialpursuit;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +11,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
 
     private Random r;
+    private TextView diceValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         r = new Random();
+        diceValue = findViewById(R.id.diceValue);
     }
 
     public void throwDice(View view) {
         int face = r.nextInt(6) + 1;
-        System.out.println(face);
+        String s = String.valueOf(face);
+        diceValue.setText(s);
     }
 }
