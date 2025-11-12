@@ -14,8 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
-    private Random r;
-    private TextView diceValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,23 +24,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        r = new Random();
-        diceValue = findViewById(R.id.diceValue);
     }
 
-    public void throwDice(View view) {
-        int diceSup = 10;
-        if(view.getId() == R.id.throw6DiceButton)
-            diceSup = 6;
-
-        int face = r.nextInt(diceSup) + 1;
-        String s = String.valueOf(face);
-        diceValue.setText(s);
-
-        if(face == diceSup) {
-            Toast t = new Toast(this);
-            t.setText("Lucky!");
+    public void handleAnswer(View view) {
+        Toast t = new Toast(this);
+        t.setDuration(Toast.LENGTH_SHORT);
+        if(view.getId() == R.id.answer1) {
+            t.setText("Right answer!");
+            t.show();
+        } else {
+            t.setText("Wrong answer!");
             t.show();
         }
     }
