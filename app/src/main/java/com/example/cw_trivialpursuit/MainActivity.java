@@ -31,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void throwDice(View view) {
-        int face = r.nextInt(6) + 1;
+        int diceSup = 10;
+        if(view.getId() == R.id.throw6DiceButton)
+            diceSup = 6;
+
+        int face = r.nextInt(diceSup) + 1;
         String s = String.valueOf(face);
         diceValue.setText(s);
     }
