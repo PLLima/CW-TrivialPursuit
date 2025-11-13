@@ -14,6 +14,7 @@ public class Quiz {
         c1.addWrongAnswer("Andy the Android.");
         c1.addWrongAnswer("RoboBob.");
         c1.addWrongAnswer("Droidy.");
+        c1.addWrongAnswer("IronBot.");
         cards.add(c1);
 
         Card c2 = new Card();
@@ -29,7 +30,6 @@ public class Quiz {
         c3.setRightAnswer("In 2008.");
         c3.addWrongAnswer("In 2009.");
         c3.addWrongAnswer("In 2010.");
-        c3.addWrongAnswer("In 2011.");
         cards.add(c3);
     }
     public Vector<Card> getCards() {
