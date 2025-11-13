@@ -1,6 +1,8 @@
 package com.example.cw_trivialpursuit;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,12 @@ public class ScoreActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        TextView scoreText = findViewById(R.id.score);
+        Intent lastActivity = getIntent();
+        int userScore = lastActivity.getIntExtra("us", 0);
+        int maxScore = lastActivity.getIntExtra("ms", 0);
+        String displayText = "Your score was " + userScore + " over " + maxScore;
+        scoreText.setText(displayText);
     }
 }

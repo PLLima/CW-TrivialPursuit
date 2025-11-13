@@ -1,5 +1,6 @@
 package com.example.cw_trivialpursuit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        setContentView(R.layout.activity_main);
         cardLayout = findViewById(R.id.card);
 
         quiz = new Quiz();
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         cardSet = new Vector<>(quiz.getCards());
         Collections.shuffle(cardSet);
 
-        tryCount = 0;
+        tryCount = 1;
         userScore = 0;
         maxScore = 2 * cardCount;
 
@@ -83,16 +83,30 @@ public class MainActivity extends AppCompatActivity {
                     Button button = (Button) view;
                     String buttonText = button.getText().toString();
                     if(buttonText.equals(cardSet.get(cardIndex).getRightAnswer())) {
-                        t.setText("Right answer!");
-                        t.show();
-
                         int lastAnswerCount = propositions.toArray().length;
                         for(int i = 0; i < lastAnswerCount; i++)
                             cardLayout.removeView(buttons.get(i));
 
+                        if(tryCount == 1) {
+                            userScore += 2;
+                            t.setText("Right answer! +2 points!");
+                        } else if (tryCount == 2) {
+                            userScore += 1;
+                            t.setText("Right answer! +1 point!");
+                        } else
+                            t.setText("Right answer! No points...");
+                        t.show();
+                        tryCount = 1;
+
                         cardIndex++;
-                        if(cardIndex == cardCount)
+                        if(cardIndex == cardCount) {
                             cardIndex = 0;
+                            Intent intentScore = new Intent(getApplicationContext(), ScoreActivity.class);
+                            intentScore.putExtra("ms", maxScore);
+                            intentScore.putExtra("us", userScore);
+                            startActivity(intentScore);
+                            return;
+                        }
 
                         questionText.setText(cardSet.get(cardIndex).getQuestion());
                         propositions = new Vector<>(cardSet.get(cardIndex).getWrongAnswers());
@@ -114,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         t.setText("Wrong answer! Try again...");
                         t.show();
+
+                        tryCount++;
                     }
                 }
             });
