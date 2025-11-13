@@ -27,7 +27,8 @@ public class ScoreActivity extends AppCompatActivity {
         Intent lastActivity = getIntent();
         int userScore = lastActivity.getIntExtra("us", 0);
         int maxScore = lastActivity.getIntExtra("ms", 0);
-        String displayText = "Your score was " + userScore + " over " + maxScore;
+        float finalScore = (float) userScore / maxScore;
+        String displayText = "You got " + userScore + " points over " + maxScore + "\n" + "Final score: " + finalScore;
         scoreText.setText(displayText);
     }
 }
