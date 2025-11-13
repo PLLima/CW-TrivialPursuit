@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/scoreScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".ScoreActivity">
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="409dp"
         android:layout_height="729dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,11 +20,52 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/score"
+            android:id="@+id/scoreText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="50sp"
             android:text="TextView"
             android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/registerUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="50sp">
+
+            <TextView
+                android:id="@+id/usernameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Username:"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Type username here..."
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#B1AAAA"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/submitUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
