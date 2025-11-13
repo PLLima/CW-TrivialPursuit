@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout cardLayout;
     private int cardCount;
     private int cardIndex;
+    private int tryCount;
+    private int userScore;
+    private int maxScore;
     private Vector<Card> cardSet;
     private TextView questionText;
     private Vector<Button> buttons;
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         cardIndex = 0;
         cardSet = new Vector<>(quiz.getCards());
         Collections.shuffle(cardSet);
+
+        tryCount = 0;
+        userScore = 0;
+        maxScore = 2 * cardCount;
 
         questionText = findViewById(R.id.question);
         questionText.setText(cardSet.get(cardIndex).getQuestion());
