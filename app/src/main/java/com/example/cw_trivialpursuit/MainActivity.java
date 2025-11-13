@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         questionText = findViewById(R.id.question);
         questionText.setText(cardSet.get(cardIndex).getQuestion());
 
-        propositions = cardSet.get(cardIndex).getWrongAnswers();
+        propositions = new Vector<>(cardSet.get(cardIndex).getWrongAnswers());
         propositions.add(cardSet.get(cardIndex).getRightAnswer());
         Collections.shuffle(propositions);
 
@@ -79,19 +79,18 @@ public class MainActivity extends AppCompatActivity {
                         t.setText("Right answer!");
                         t.show();
 
+                        int lastAnswerCount = propositions.toArray().length;
+                        for(int i = 0; i < lastAnswerCount; i++)
+                            cardLayout.removeView(buttons.get(i));
+
                         cardIndex++;
                         if(cardIndex == cardCount)
                             cardIndex = 0;
 
-                        int lastAnswerCount = propositions.toArray().length;
                         questionText.setText(cardSet.get(cardIndex).getQuestion());
-                        propositions = cardSet.get(cardIndex).getWrongAnswers();
+                        propositions = new Vector<>(cardSet.get(cardIndex).getWrongAnswers());
                         propositions.add(cardSet.get(cardIndex).getRightAnswer());
                         Collections.shuffle(propositions);
-
-                        for(int i = 0; i < lastAnswerCount; i++) {
-                            cardLayout.removeView(buttons.get(i));
-                        }
 
                         buttons = new Vector<>();
                         int answerCount = propositions.toArray().length;
