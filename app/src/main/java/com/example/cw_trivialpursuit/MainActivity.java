@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private int userScore;
     private int maxScore;
     private Vector<Card> cardSet;
+    private ViewGroup.LayoutParams layoutParams;
     private TextView questionText;
     private Button helpButton;
     private Vector<Button> buttons;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ViewGroup.LayoutParams layoutParams;
         Quiz quiz;
 
         super.onCreate(savedInstanceState);
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         propositions.add(cardSet.get(cardIndex).getRightAnswer());
         Collections.shuffle(propositions);
 
+        layoutParams = helpButton.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         buttons = new Vector<>();
         int answerCount = propositions.toArray().length;
         for(int i = 0; i < answerCount; i++) {
             buttons.add(new Button(this));
             cardLayout.addView(buttons.get(i));
-            layoutParams = buttons.get(i).getLayoutParams();
-            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             buttons.get(i).setLayoutParams(layoutParams);
             buttons.get(i).setText(propositions.get(i));
             buttons.get(i).setOnClickListener(new View.OnClickListener() {
@@ -124,9 +124,6 @@ public class MainActivity extends AppCompatActivity {
                         for(int i = 0; i < answerCount; i++) {
                             buttons.add(new Button(getApplicationContext()));
                             cardLayout.addView(buttons.get(i));
-                            ViewGroup.LayoutParams layoutParams = buttons.get(i).getLayoutParams();
-                            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                             buttons.get(i).setLayoutParams(layoutParams);
                             buttons.get(i).setText(propositions.get(i));
                             buttons.get(i).setOnClickListener(this);
