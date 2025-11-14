@@ -18,12 +18,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.w3c.dom.Text;
-
 public class ScoreActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+    private float finalScore;
     private final String USERNAME_KEY = "username";
+    private final String SCORE_KEY = "score";
     private String username;
 
     @Override
@@ -39,6 +39,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         TextView scoreText = findViewById(R.id.scoreText);
         TextView scoreGuideText = findViewById(R.id.scoreGuideText);
+        TextView newUsernameText = findViewById(R.id.usernameTitle);
         EditText userInput = findViewById(R.id.usernameInput);
         Button submitUserButton = findViewById(R.id.submitUser);
         submitUserButton.setVisibility(View.GONE);
@@ -46,7 +47,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         int userScore = lastActivity.getIntExtra("us", 0);
         int maxScore = lastActivity.getIntExtra("ms", 0);
-        float finalScore = (float) userScore / maxScore;
+        finalScore = (float) userScore / maxScore;
         String scoreInfo = "You got " + userScore + " over " + maxScore + " points.\n" + "Final score: " + finalScore + ".";
         scoreText.setText(scoreInfo);
 
@@ -73,15 +74,27 @@ public class ScoreActivity extends AppCompatActivity {
         if(!sharedPreferences.contains(USERNAME_KEY)) {
             String scoreGuideInfo = "You established the first record! Please, register your username below.";
             scoreGuideText.setText(scoreGuideInfo);
-
+        } else {
+            String storedUsername = sharedPreferences.getString(USERNAME_KEY, "Username");
+            float storedScore = sharedPreferences.getFloat(SCORE_KEY, 0);
+            if(userScore > storedScore) {
+                String scoreGuideInfo = "You bet the previous record of " + storedScore + " points reached by " + storedUsername + ". \nPlease register your username below.";
+                scoreGuideText.setText(scoreGuideInfo);
+            } else {
+                newUsernameText.setVisibility(View.GONE);
+                userInput.setVisibility(View.GONE);
+                String scoreGuideInfo = "Your score was lower than the record of " + storedScore + " points reached by " + storedUsername + ". \nPlease try again.";
+                scoreGuideText.setText(scoreGuideInfo);
+            }
         }
     }
-    
+
     public void handleClick(View view) {
         Toast.makeText(this, "Username successfully registered", Toast.LENGTH_SHORT).show();
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USERNAME_KEY, username);
+        editor.putFloat(SCORE_KEY, finalScore);
         editor.apply();
     }
 }
