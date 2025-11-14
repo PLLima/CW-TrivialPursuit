@@ -21,7 +21,7 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout cardLayout;
+    private LinearLayout buttonsLayout;
     private int cardCount;
     private int cardIndex;
     private int tryCount;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        cardLayout = findViewById(R.id.card);
+        buttonsLayout = findViewById(R.id.buttonsLayout);
 
         quiz = new Quiz();
         cardCount = quiz.getCardCount();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         int answerCount = propositions.toArray().length;
         for(int i = 0; i < answerCount; i++) {
             buttons.add(new Button(this));
-            cardLayout.addView(buttons.get(i));
+            buttonsLayout.addView(buttons.get(i));
             buttons.get(i).setLayoutParams(layoutParams);
             buttons.get(i).setText(propositions.get(i));
             buttons.get(i).setOnClickListener(new View.OnClickListener() {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                         int lastAnswerCount = propositions.toArray().length;
                         for(int i = 0; i < lastAnswerCount; i++)
-                            cardLayout.removeView(buttons.get(i));
+                            buttonsLayout.removeView(buttons.get(i));
 
                         if(tryCount == 1) {
                             userScore += 2;
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         int answerCount = propositions.toArray().length;
                         for(int i = 0; i < answerCount; i++) {
                             buttons.add(new Button(getApplicationContext()));
-                            cardLayout.addView(buttons.get(i));
+                            buttonsLayout.addView(buttons.get(i));
                             buttons.get(i).setLayoutParams(layoutParams);
                             buttons.get(i).setText(propositions.get(i));
                             buttons.get(i).setOnClickListener(this);
