@@ -19,7 +19,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class ScoreActivity extends AppCompatActivity {
-
     private SharedPreferences sharedPreferences;
     private float finalScore;
     private final String USERNAME_KEY = "username";
@@ -48,7 +47,7 @@ public class ScoreActivity extends AppCompatActivity {
         int userScore = lastActivity.getIntExtra("us", 0);
         int maxScore = lastActivity.getIntExtra("ms", 0);
         finalScore = (float) userScore / maxScore;
-        String scoreInfo = "You got " + userScore + " over " + maxScore + " points.\n" + "Final score: " + finalScore + ".";
+        String scoreInfo = "You got " + userScore + " over " + maxScore + " questions correct.\n" + "Final score: " + finalScore + " points.";
         scoreText.setText(scoreInfo);
 
         userInput.addTextChangedListener(new TextWatcher() {
@@ -77,7 +76,7 @@ public class ScoreActivity extends AppCompatActivity {
         } else {
             String storedUsername = sharedPreferences.getString(USERNAME_KEY, "Username");
             float storedScore = sharedPreferences.getFloat(SCORE_KEY, 0);
-            if(userScore > storedScore) {
+            if(finalScore > storedScore) {
                 String scoreGuideInfo = "You bet the previous record of " + storedScore + " points reached by " + storedUsername + ". \nPlease register your username below.";
                 scoreGuideText.setText(scoreGuideInfo);
             } else {

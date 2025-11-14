@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int tryCount;
     private int userScore;
     private int maxScore;
+    private boolean isQuizFinished;
     private Vector<Card> cardSet;
     private ViewGroup.LayoutParams layoutParams;
     private TextView questionText;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        isQuizFinished = false;
         buttonsLayout = findViewById(R.id.buttonsLayout);
 
         quiz = new Quiz();
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                         cardIndex++;
                         if(cardIndex == cardCount) {
-                            cardIndex = 0;
+                            isQuizFinished = true;
                             Intent intentScore = new Intent(getApplicationContext(), ScoreActivity.class);
                             intentScore.putExtra("ms", maxScore);
                             intentScore.putExtra("us", userScore);
@@ -146,4 +148,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isQuizFinished) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
 }
