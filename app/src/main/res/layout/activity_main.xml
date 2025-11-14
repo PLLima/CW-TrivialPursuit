@@ -49,6 +49,13 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/helpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search for help online"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

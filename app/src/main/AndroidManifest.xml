@@ -24,5 +24,11 @@
             </intent-filter>
         </activity>
     </application>
+    <queries>
+        <package android:name="com.example.myapplication" />
+        <intent>
+            <action android:name="android.intent.action.WEB_SEARCH" />
+        </intent>
+    </queries>
 
 </manifest>

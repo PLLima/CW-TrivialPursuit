@@ -1,5 +1,6 @@
 package com.example.cw_trivialpursuit;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private int maxScore;
     private Vector<Card> cardSet;
     private TextView questionText;
+    private Button helpButton;
     private Vector<Button> buttons;
     private Vector<String> propositions;
 
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         questionText = findViewById(R.id.question);
         questionText.setText(cardSet.get(cardIndex).getQuestion());
 
+        helpButton = findViewById(R.id.helpButton);
+
         propositions = new Vector<>(cardSet.get(cardIndex).getWrongAnswers());
         propositions.add(cardSet.get(cardIndex).getRightAnswer());
         Collections.shuffle(propositions);
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                     Button button = (Button) view;
                     String buttonText = button.getText().toString();
                     if(buttonText.equals(cardSet.get(cardIndex).getRightAnswer())) {
+                        helpButton.setVisibility(View.GONE);
+
                         int lastAnswerCount = propositions.toArray().length;
                         for(int i = 0; i < lastAnswerCount; i++)
                             cardLayout.removeView(buttons.get(i));
@@ -130,6 +136,16 @@ public class MainActivity extends AppCompatActivity {
                         t.show();
 
                         tryCount++;
+                        helpButton.setVisibility(View.VISIBLE);
+                        helpButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent webSearch = new Intent(Intent.ACTION_WEB_SEARCH);
+                                webSearch.putExtra(SearchManager.QUERY, cardSet.get(cardIndex).getQuestion());
+                                if (webSearch.resolveActivity(getPackageManager()) != null)
+                                    startActivity(webSearch);
+                            }
+                        });
                     }
                 }
             });
