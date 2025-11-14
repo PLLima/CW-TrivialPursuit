@@ -137,14 +137,11 @@ public class MainActivity extends AppCompatActivity {
 
                         tryCount++;
                         helpButton.setVisibility(View.VISIBLE);
-                        helpButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent webSearch = new Intent(Intent.ACTION_WEB_SEARCH);
-                                webSearch.putExtra(SearchManager.QUERY, cardSet.get(cardIndex).getQuestion());
-                                if (webSearch.resolveActivity(getPackageManager()) != null)
-                                    startActivity(webSearch);
-                            }
+                        helpButton.setOnClickListener(v -> {
+                            Intent webSearch = new Intent(Intent.ACTION_WEB_SEARCH);
+                            webSearch.putExtra(SearchManager.QUERY, cardSet.get(cardIndex).getQuestion());
+                            if (webSearch.resolveActivity(getPackageManager()) != null)
+                                startActivity(webSearch);
                         });
                     }
                 }
